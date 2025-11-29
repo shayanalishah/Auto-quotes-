@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Redirecting…</title>
+<meta name="robots" content="noindex,nofollow" />
+<meta name="referrer" content="no-referrer" />
+<style>
+  body{font-family:system-ui,Segoe UI,Arial,sans-serif; line-height:1.45; margin:40px; color:#111}
+  a{background:#0c4a6e;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none}
+  .box{max-width:520px;margin:auto;text-align:center}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Taking you to our partner…</h1>
+  <p>If nothing happens, click Continue.</p>
+  <p><a id="btn" href="#" rel="noreferrer">Continue</a></p>
+</div>
+<script>
+(function(){
+  const url=new URL(location.href);
+  const clickId = url.searchParams.get("aff_click_id") || url.searchParams.get("ad_id") || url.searchParams.get("fbclid") || ("r"+Date.now().toString(36));
+  const subId   = url.searchParams.get("sub_aff_id") || url.searchParams.get("adset_id") || url.searchParams.get("campaign_id") || clickId;
+
+  let dest = "https://adswinleads.o18.link/c?o=21843210&m=21935&a=721565&aff_click_id={replace_it}&sub_aff_id={replace_it}";
+  dest = dest.replace(/{replace_it}/g, encodeURIComponent(clickId));
+
+  const carry=["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","msclkid","campaign_id","adset_id","ad_id","src"];
+  const u=new URL(dest);
+  u.searchParams.set("aff_click_id", clickId);
+  u.searchParams.set("sub_aff_id",  subId);
+  carry.forEach(k=>{ const v=url.searchParams.get(k); if(v && !u.searchParams.has(k)) u.searchParams.set(k,v); });
+
+  document.getElementById("btn").href = u.toString();
+  setTimeout(()=>{ location.replace(u.toString()); }, 300);
+})();
+</script>
+</body>
+</html>

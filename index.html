@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Related searches</title>
+<meta name="robots" content="noindex,nofollow" />
+<style>
+  :root{--panel:#1f2937; --tile:#a3ff13; --text:#0b0b0b; --muted:#94a3b8;}
+  body{margin:0; font-family:system-ui,Segoe UI,Arial,sans-serif; background:#111827; color:#e5e7eb;}
+  .wrap{max-width:420px; margin:24px auto; padding:0 14px;}
+  .card{background:var(--panel); border-radius:12px; padding:16px;}
+  h1{font-size:18px; margin:0 0 12px; color:#cbd5e1;}
+  .tile{display:flex; align-items:center; justify-content:space-between; background:var(--tile);
+        color:var(--text); text-decoration:none; padding:16px; border-radius:16px;
+        margin:12px 0; font-weight:700; box-shadow:0 1px 0 rgba(0,0,0,.15) inset;}
+  .tile span{max-width:85%;}
+  .arrow{font-weight:900;}
+  .note{color:#94a3b8; font-size:12px; margin-top:8px;}
+  footer{margin-top:16px; text-align:center; font-size:12px; color:#94a3b8;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Related searches</h1>
+
+      <!-- 1 -->
+      <a class="tile utm" href="search.html?cat=go-car-quote-auto-insurance&q=GO%20CAR%20QUOTE%20AUTO%20INSURANCE">
+        <span>GO CAR QUOTE AUTO INSURANCE</span><span class="arrow">›</span>
+      </a>
+      <!-- 2 -->
+      <a class="tile utm" href="search.html?cat=super-auto-budget&q=Super%20Auto%20Budget">
+        <span>Super Auto Budget</span><span class="arrow">›</span>
+      </a>
+      <!-- 3 (NEW) -->
+      <a class="tile utm" href="search.html?cat=auto-quote-hub&q=Auto%20Quote%20Hub">
+        <span>Auto Quote Hub</span><span class="arrow">›</span>
+      </a>
+
+      <div class="note">Tap a topic to view results.</div>
+    </div>
+    <footer>© <span id="y"></span> Your Brand</footer>
+  </div>
+
+<script>
+(function(){
+  // Carry UTMs/IDs from Facebook to the next page
+  const keep=["utm_source","utm_medium","utm_campaign","utm_content","utm_term",
+    "fbclid","gclid","msclkid","campaign_id","adset_id","ad_id","src","aff_click_id","sub_aff_id"];
+  const inQs=new URLSearchParams(location.search), add=new URLSearchParams();
+  keep.forEach(k=>{const v=inQs.get(k); if(v) add.set(k,v);});
+  if (![...add.keys()].length) return;
+  document.querySelectorAll('a.utm').forEach(a=>{
+    const u=new URL(a.href, location.href);
+    for(const [k,v] of add.entries()) if(!u.searchParams.has(k)) u.searchParams.set(k,v);
+    a.href=u.pathname+"?"+u.searchParams.toString();
+  });
+})();
+document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

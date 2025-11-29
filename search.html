@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Search results</title>
+<meta name="robots" content="noindex,nofollow" />
+<style>
+  :root{--panel:#1f2937; --tile:#f1f5f9; --accent:#a3ff13;}
+  body{margin:0; font-family:system-ui,Segoe UI,Arial,sans-serif; background:#111827; color:#e5e7eb;}
+  .wrap{max-width:620px; margin:24px auto; padding:0 14px;}
+  .card{background:var(--panel); border-radius:12px; padding:16px;}
+  h1{font-size:20px; margin:0 0 12px; color:#e2e8f0;}
+  .group{margin:12px 0 18px;}
+  .group h2{font-size:16px; margin:0 0 8px;}
+  .result{display:block; text-decoration:none; background:var(--tile); color:#0b0b0b;
+          padding:14px 16px; border-radius:12px; margin:8px 0;}
+  .result strong{display:block; font-size:16px;}
+  .result small{display:block; color:#475569; margin-top:4px;}
+  .back{display:inline-block; margin-bottom:10px; color:#94a3b8;}
+  .tag{display:inline-block; padding:2px 8px; border-radius:999px; background:var(--accent); color:#0b0b0b; font-weight:700; font-size:12px; margin-left:8px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="javascript:history.back()">‹ Back</a>
+    <div class="card">
+      <h1 id="h">Results</h1>
+
+      <!-- Category 1 -->
+      <section class="group cat" data-cat="go-car-quote-auto-insurance">
+        <h2>GO CAR QUOTE AUTO INSURANCE <span class="tag">1</span></h2>
+        <a class="result passthrough"
+           href="go/go-car-quote-auto-insurance.html"
+           target="_self" rel="noreferrer">
+          <strong>Go Car Quote — Offer</strong>
+          <small>Auto insurance quote — affiliate link</small>
+        </a>
+      </section>
+
+      <!-- Category 2 -->
+      <section class="group cat" data-cat="super-auto-budget">
+        <h2>Super Auto Budget <span class="tag">1</span></h2>
+        <a class="result passthrough"
+           href="go/super-auto-budget.html"
+           target="_self" rel="noreferrer">
+          <strong>Super Auto Budget — Offer</strong>
+          <small>Auto budget deal — affiliate link</small>
+        </a>
+      </section>
+
+      <!-- Category 3 (NEW) -->
+      <section class="group cat" data-cat="auto-quote-hub">
+        <h2>Auto Quote Hub <span class="tag">1</span></h2>
+        <a class="result passthrough"
+           href="go/auto-quote-hub.html"
+           target="_self" rel="noreferrer">
+          <strong>Auto Quote Hub — Offer</strong>
+          <small>Auto insurance quotes hub — affiliate link</small>
+        </a>
+      </section>
+
+    </div>
+  </div>
+
+<script>
+(function(){
+  const url=new URL(location.href);
+  const cat=url.searchParams.get("cat"), q=url.searchParams.get("q")||"";
+  if(cat){
+    document.querySelectorAll(".cat").forEach(s=>{
+      s.style.display = (s.dataset.cat===cat) ? "block" : "none";
+    });
+    if(q) document.getElementById("h").textContent=q;
+  }
+  // Carry UTMs/IDs to go/* pages
+  const keep=["utm_source","utm_medium","utm_campaign","utm_content","utm_term",
+    "fbclid","gclid","msclkid","campaign_id","adset_id","ad_id","src","aff_click_id","sub_aff_id"];
+  const add=new URLSearchParams(); keep.forEach(k=>{const v=url.searchParams.get(k); if(v) add.set(k,v);});
+  if ([...add.keys()].length){
+    document.querySelectorAll("a.passthrough").forEach(a=>{
+      const u=new URL(a.href, location.href);
+      for(const [k,v] of add.entries()) if(!u.searchParams.has(k)) u.searchParams.set(k,v);
+      a.href=u.pathname+(u.searchParams.toString() ? "?"+u.searchParams.toString() : "");
+    });
+  }
+})();
+</script>
+</body>
+</html>
